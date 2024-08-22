@@ -2,52 +2,20 @@
 // Function component
 import { eventWrapper } from "@testing-library/user-event/dist/utils";
 import React from "react";
+import UserInfor from "./UserInfor";
+import DisplayInfor from "./DisplayInfor";
 
 class MyComponent extends React.Component {
-  state = {
-    name: "HarryPhamDev",
-    address: "Hoi Dan IT",
-    age: 26,
-  };
-
-  handleClick(event) {
-    // console.log(">> Click me my button");
-
-    // merge state chỉ xảy ra với REACT class
-    this.setState({
-      name: "Eric",
-      age: Math.floor(Math.random() * 100) + 1,
-    });
-  }
-
-  handleOnMouseOver(event) {
-    // console.log(event.pageX);
-  }
-
-  handleOnChangeInput = (event) => {
-    this.setState({
-      name: event.target.value,
-    });
-    // console.log(event, event.target.value);
-  };
-
-  handleOnSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-  };
-
   // JSX
   render() {
+    const myInfor = ["ab", "c", "c"];
     return (
       <div>
-        My name is {this.state.name} and I'm {this.state.age}
-        <form onSubmit={(event) => this.handleOnSubmit(event)}>
-          <input
-            type="text"
-            onChange={(event) => this.handleOnChangeInput(event)}
-          />
-          <button>Submit</button>
-        </form>
+        <UserInfor />
+        <br /> <br />
+        <DisplayInfor name="Hoi Dan IT" age="30" />
+        <hr></hr>
+        <DisplayInfor name="Eric" age={26} myInfor={myInfor} />
       </div>
     );
   }
