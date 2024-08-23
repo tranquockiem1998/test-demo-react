@@ -2,7 +2,7 @@
 // Function component
 import { eventWrapper } from "@testing-library/user-event/dist/utils";
 import React from "react";
-import UserInfor from "./UserInfor";
+import AddUserInfor from "./AddUserInfo";
 import DisplayInfor from "./DisplayInfor";
 
 class MyComponent extends React.Component {
@@ -14,18 +14,21 @@ class MyComponent extends React.Component {
     ],
   };
 
+  handleAddNewUser = (userObj) => {
+    this.setState({
+      listUser: [userObj, ...this.state.listUser],
+    });
+  };
+
   // JSX
   // DRY: don't repeat yourself
   render() {
     const myInfor = ["ab", "c", "c"];
     return (
       <div>
-        <UserInfor />
+        <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
         <br /> <br />
-        <DisplayInfor
-          listUsers={this.state.listUser}
-          users={this.state.listUser}
-        />
+        <DisplayInfor listUsers={this.state.listUser} />
       </div>
     );
   }
