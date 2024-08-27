@@ -25,11 +25,15 @@ class MyComponent extends React.Component {
   render() {
     const myInfor = ["ab", "c", "c"];
     return (
-      <div>
-        <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
-        <br /> <br />
-        <DisplayInfor listUsers={this.state.listUser} />
-      </div>
+      <>
+        <div className="A">
+          <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
+          <br /> <br />
+          <DisplayInfor listUsers={this.state.listUser} />
+        </div>
+
+        <div className="B"></div>
+      </>
     );
   }
 }
