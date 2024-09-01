@@ -109,14 +109,14 @@ const DisplayInfor = (props) => {
               </div>
             );
           })}
-          {/* {<div>My name is {name}</div>
+          {/* <div>My name is {name}</div>
         <div>My age is {age}</div>
         <hr></hr>
         <div>My name is {name}</div>
         <div>My age is {age}</div>
         <hr></hr>
         <div>My name is {name}</div>
-        <div>My age is {age}</div>} */}
+        <div>My age is {age}</div> */}
         </>
       )}
     </div>
