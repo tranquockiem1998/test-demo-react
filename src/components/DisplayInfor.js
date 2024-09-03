@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DisplayInfor.scss";
 import logo from "./../logo.svg";
 
@@ -83,6 +83,13 @@ const DisplayInfor = (props) => {
   const handleShowHideListUser = () => {
     setShowHideListUser(!isShowHideListUser);
   };
+
+  useEffect(() => {
+    if (listUsers.length === 0) {
+      alert("You deleted all users!");
+    }
+    console.log(">>> Call me useEffect");
+  }, [listUsers]); // [] có nghĩa là React sẽ chỉ chạy hàm useEffect chỉ 1 lần
 
   return (
     <div className="display-infor-container">
