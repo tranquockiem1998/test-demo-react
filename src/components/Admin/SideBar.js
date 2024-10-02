@@ -1,3 +1,4 @@
+import "./SideBar.scss";
 import {
   ProSidebar,
   Menu,
@@ -7,6 +8,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
+import { Link } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaGem,
@@ -15,6 +17,10 @@ import {
   FaRegLaughWink,
   FaHeart,
 } from "react-icons/fa";
+
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
+
 import sidebarBg from "../../assets/bg2.jpg";
 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -42,28 +48,31 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
               whiteSpace: "nowrap",
             }}
           >
-            Hỏi Dân IT
+            <DiReact size={"3em"} color={"#00bfff"} />
+            <span>Hỏi Dân IT</span>
           </div>
         </SidebarHeader>
 
         <SidebarContent>
           <Menu iconShape="circle">
-            <MenuItem
-              icon={<FaTachometerAlt />}
-              suffix={<span className="badge red">New</span>}
-            >
+            <MenuItem icon={<MdDashboard />}>
               DashBoard
+              <Link to="/admins" />
             </MenuItem>
-            <MenuItem icon={<FaGem />}>Components</MenuItem>
           </Menu>
           <Menu iconShape="circle">
             <SubMenu
-              suffix={<span className="badge yellow">3</span>}
-              icon={<FaRegLaughWink />}
+              // suffix={<span className="badge yellow">3</span>}
+              // icon={<FaRegLaughWink />}
+              icon={<FaGem />}
+              title="Features"
             >
-              <MenuItem>1</MenuItem>
-              <MenuItem>2</MenuItem>
-              <MenuItem>3</MenuItem>
+              <MenuItem>
+                Quản lý Users
+                <Link to="/admins/manage-users" />
+              </MenuItem>
+              <MenuItem>Quản lý Bài Quiz</MenuItem>
+              <MenuItem>Quản lý Câu Hỏi</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
@@ -76,12 +85,11 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             }}
           >
             <a
-              href="https://github.com/azouaoui-med/react-pro-sidebar"
+              href="https://haryphamdev.github.io/hoidanit-udemy/"
               target="_blank"
               className="sidebar-btn"
               rel="noopener noreferrer"
             >
-              <FaGithub />
               <span
                 style={{
                   whiteSpace: "nowrap",
@@ -89,7 +97,7 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                   overflow: "hidden",
                 }}
               >
-                viewSources
+                &#169; Hỏi Dân IT Udemy
               </span>
             </a>
           </div>
