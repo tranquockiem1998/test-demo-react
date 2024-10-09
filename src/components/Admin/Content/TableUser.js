@@ -22,7 +22,7 @@ const TableUser = (props) => {
             listUsers.map((user, index) => {
               return (
                 <tr key={`table-users-${user.id}`}>
-                  <th scope="row">{user.id}</th>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
@@ -39,7 +39,11 @@ const TableUser = (props) => {
                 </tr>
               );
             })}
-          {listUsers && listUsers.length === 0 && <tr>Not found data</tr>}
+          {listUsers && listUsers.length === 0 && (
+            <tr>
+              <td colSpan={"4"}>Not found data</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>
