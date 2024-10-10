@@ -5,12 +5,18 @@ import { useEffect, useState } from "react";
 import TableUser from "./TableUser";
 import { getAllUsers } from "../../../services/apiServices";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalViewUser from "./ModalViewUser";
+import ModalDeleteUser from "./ModalDeleteUser";
 
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+  const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [dataUpdate, setDataUpdate] = useState([]);
   const [listUsers, setListUsers] = useState([]);
+  const [dataView, setDataView] = useState([]);
+  const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
+  const [dataDelete, setDataDelete] = useState({});
 
   useEffect(() => {
     fetchListUsers();
@@ -29,8 +35,23 @@ const ManageUser = (props) => {
     setDataUpdate(user);
   };
 
+  const handleClickBtnView = (user) => {
+    setShowModalViewUser(true);
+    setDataView(user);
+  };
+
+  const handleClickBtnDelete = (user) => {
+    setShowModalDeleteUser(true);
+    setDataDelete(user);
+    console.log(">>> Check data to delete: ", user);
+  };
+
   const resetUpdateData = () => {
     setDataUpdate({});
+  };
+
+  const resetViewData = () => {
+    setDataView({});
   };
 
   return (
@@ -50,6 +71,8 @@ const ManageUser = (props) => {
           <TableUser
             listUsers={listUsers}
             handleClickBtnUpdate={handleClickBtnUpdate}
+            handleClickBtnView={handleClickBtnView} // Truyền hàm handleClickBtnView vào TableUser để hiện modal xem thông tin user khi người dùng click vào nút View
+            handleClickBtnDelete={handleClickBtnDelete} // Truyền hàm handleClickBtnDelete vào TableUser để hiện modal xác nhận xóa user khi người dùng click vào nút Delete
           />
         </div>
         <ModalCreateUser
@@ -63,6 +86,17 @@ const ManageUser = (props) => {
           dataUpdate={dataUpdate}
           fetchListUsers={fetchListUsers}
           resetUpdateData={resetUpdateData}
+        />
+        <ModalViewUser
+          dataView={dataView}
+          show={showModalViewUser}
+          setShow={setShowModalViewUser}
+          resetViewData={resetViewData}
+        />
+        <ModalDeleteUser
+          show={showModalDeleteUser}
+          setShow={setShowModalDeleteUser}
+          dataDelete={dataDelete}
         />
       </div>
     </div>
