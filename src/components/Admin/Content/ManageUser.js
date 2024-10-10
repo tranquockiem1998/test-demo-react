@@ -3,12 +3,18 @@ import "./ManageUser.scss";
 import { FcPlus } from "react-icons/fc";
 import { useEffect, useState } from "react";
 import TableUser from "./TableUser";
-import { getAllUsers } from "../../../services/apiServices";
+import {
+  getAllUsers,
+  getUserWithPaginate,
+} from "../../../services/apiServices";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
 import ModalDeleteUser from "./ModalDeleteUser";
+import TableUserPaginate from "./TableUserPaginate";
 
 const ManageUser = (props) => {
+  const LIMIT_USER = 5;
+  const [pageCount, setPageCount] = useState(0);
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
   const [showModalViewUser, setShowModalViewUser] = useState(false);
@@ -19,13 +25,24 @@ const ManageUser = (props) => {
   const [dataDelete, setDataDelete] = useState({});
 
   useEffect(() => {
-    fetchListUsers();
+    // fetchListUsers();
+    fetchListUsersWithPaginate(1);
   }, []); // Hàm này được chạy sau khi hàm return được chạy, [] ám chỉ rằng hàm chỉ chạy duy nhất một lần
 
   const fetchListUsers = async () => {
     let res = await getAllUsers();
     if (res.EC === 0) {
       setListUsers(res.DT);
+      // Khi cập nhật state thì giao diện sẽ render lại
+    }
+  };
+
+  const fetchListUsersWithPaginate = async (page) => {
+    let res = await getUserWithPaginate(page, LIMIT_USER);
+    if (res.EC === 0) {
+      console.log("respond.data:", res.DT);
+      setListUsers(res.DT.users);
+      setPageCount(res.DT.totalPages);
       // Khi cập nhật state thì giao diện sẽ render lại
     }
   };
@@ -67,11 +84,19 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div className="table-users-container">
-          <TableUser
+          {/* <TableUser
             listUsers={listUsers}
             handleClickBtnUpdate={handleClickBtnUpdate}
             handleClickBtnView={handleClickBtnView} // Truyền hàm handleClickBtnView vào TableUser để hiện modal xem thông tin user khi người dùng click vào nút View
             handleClickBtnDelete={handleClickBtnDelete} // Truyền hàm handleClickBtnDelete vào TableUser để hiện modal xác nhận xóa user khi người dùng click vào nút Delete
+          /> */}
+          <TableUserPaginate
+            listUsers={listUsers}
+            handleClickBtnUpdate={handleClickBtnUpdate}
+            handleClickBtnView={handleClickBtnView} // Truyền hàm handleClickBtnView vào TableUser để hiện modal xem thông tin user khi người dùng click vào nút View
+            handleClickBtnDelete={handleClickBtnDelete} // Truyền hàm handleClickBtnDelete vào TableUser để hiện modal xác nhận xóa user khi người dùng click vào nút Delete
+            fetchListUsersWithPaginate={fetchListUsersWithPaginate}
+            pageCount={pageCount}
           />
         </div>
         <ModalCreateUser
