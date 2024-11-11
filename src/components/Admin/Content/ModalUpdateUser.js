@@ -59,7 +59,9 @@ function ModalUpdateUser(props) {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await props.fetchListUsers();
+      // await props.fetchListUsers();
+      //props.setCurrentPage(1); // Reset page to 1 when delete user successfully
+      await props.fetchListUsersWithPaginate(props.currentPage);
     }
 
     if (data && data.EC !== 0) {
